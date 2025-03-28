@@ -1,1 +1,45 @@
+# Node.js dependencies
+node_modules/
+package-lock.json
+
+# Environment variables
 .env
+
+# Logs
+*.log
+logs/
+
+# macOS specific files
+.DS_Store
+
+# IDE settings
+.idea/
+*.iml
+
+# Temporary files
+*.tmp
+*.swp
+
+# Compiled files
+*.o
+*.so
+*.out
+*.pyc
+
+# Ignore coverage reports
+coverage/
+
+# Ignore build artifacts
+dist/
+build/
+
+# Ignore personal settings
+*.bak
+*.~*
+
+# Ignore other miscellaneous system files
+Thumbs.db
+
+# Ignore hidden system files
+*.sass-cache/
+

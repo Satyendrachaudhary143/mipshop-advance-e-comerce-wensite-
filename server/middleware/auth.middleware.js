@@ -24,7 +24,7 @@ const auth = (req, res, next) => {
             })
             
         };
-        req.userId = verified;
+        req.userId = verified.id;
         next();
     } catch (error) {
         return res.status(400).json({

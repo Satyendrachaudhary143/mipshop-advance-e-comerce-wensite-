@@ -2,6 +2,7 @@ import User from "../Models/user.model.js"
 import bcryptjs from "bcryptjs"
 import generateAccessToken from "../utils/genrateAccessToken.js";
 import gererateRefreshToken from "../utils/generateRefressAccessToken.js";
+import uploadImage from "../utils/uploadimagecloudinary.js";
 
 export const registerUser = async (req , res) => {
     
@@ -55,6 +56,7 @@ export const registerUser = async (req , res) => {
         
     }
 }
+// login user
 
 export const loginUser = async (req , res) => {
     
@@ -139,7 +141,7 @@ export const loginUser = async (req , res) => {
 export const logoutUser = async (req, res) => { 
     try {
 
-      const userid = req.cookies.userInfo;
+      const userid = req.userId;
         
         const removeRefreshToken = await User.findByIdAndUpdate(userid, {
             refresh_token: ""
@@ -156,5 +158,25 @@ export const logoutUser = async (req, res) => {
     } catch (error) {
         console.log("logout error:",error);
         
+    }
+}
+// upload avatar
+export const uploadAvatar = async (req, res) => {
+    try {
+        const image = req.file.path;
+        const uploadImg = await uploadImage(image);
+        console.log("uploadImg",uploadImg);
+     res.json({
+         message: "image upload successfully",
+         success: true,
+         error: false,
+         uploadImg
+     })
+    } catch (error) {
+        return res.status(500).json({
+            message: error.message || error,
+            error: true,
+            success:false,
+       })
     }
 }

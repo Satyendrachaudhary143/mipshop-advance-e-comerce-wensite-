@@ -164,13 +164,19 @@ export const logoutUser = async (req, res) => {
 export const uploadAvatar = async (req, res) => {
     try {
         const image = req.file.path;
+        const userid = req.userId; // get user id from auth middleware
         const uploadImg = await uploadImage(image);
-        console.log("uploadImg",uploadImg);
+        const updateUser = await User.findByIdAndUpdate(userid, {
+            avatar: uploadImg.secure_url
+        })
      res.json({
          message: "image upload successfully",
          success: true,
          error: false,
-         uploadImg
+         data: {
+             image: uploadImg.secure_url,
+             userid
+         }
      })
     } catch (error) {
         return res.status(500).json({
